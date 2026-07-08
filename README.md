@@ -51,6 +51,29 @@ Next was to update the server and install any tools I needed. I used the command
 
 IM3: Confirming Tools were Installed Correctly
 
+### Part 3: Verifying Network Connectivity
+
+Now that the SIEM VM was set up and updated, I wanted to ensure that it could access other VMs and the internet as well. I performed a couple of pings (IM4), one for google.com to confirm the VM had internet access and DNS was working, as well as pinging the VM itself to confirm internal connectivity, and they both worked. 
+
+<img width="711" height="272" alt="Screenshot 2026-07-06 090013" src="https://github.com/user-attachments/assets/ae5a88fa-c60e-49ef-8fa9-89a7f26ac333" />
+
+IM4: Using the Ping Command to confirm Network Connectivity
+
+### Part 4: Installing Wazuh
+
+Now I was ready to install Wazuh. I was installing the all-in-one deployment, which included the Wazuh Manager, Indexer, and Dashboard. I first ran the command "curl -sO https://packages.wazuh.com/4.13/wazuh-install.sh" to download the Installation Assistant. I then used the command "chmod +x wazuh-install.sh" to make that assistant executable. I then ran that executable with the command "sudo ./wazuh-install.sh -a." This started the installer and went through the entire installation process (IM5). This took about 15 minutes. Once it completed, at the end it told me how to access the Wazuh Dashboard (https://IP of VM:443) and gave me the login credentials as well. To confirm the installation worked, I ran the command "sudo systemctl status wazuh-manager" to check if the service was running, and it was (IM6). 
+
+<img width="961" height="775" alt="Screenshot 2026-07-02 172309" src="https://github.com/user-attachments/assets/d9fd92bb-a5d9-4ab2-8999-c11fd27470ea" />
+
+IM5: Installation Process of Wazuh 
+
+<img width="850" height="370" alt="Screenshot 2026-07-06 090202" src="https://github.com/user-attachments/assets/649f029d-c23b-4566-87f1-776081885291" />
+
+IM6: Confirming Wazuh Manager is up and running
+
+
+
+
 
 
 
