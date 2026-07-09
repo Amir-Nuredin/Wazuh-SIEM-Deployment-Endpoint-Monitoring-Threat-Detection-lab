@@ -71,12 +71,45 @@ IM5: Installation Process of Wazuh
 
 IM6: Confirming Wazuh Manager is up and running
 
+### Part 5: Accessing Wazuh Dashboard
 
+Now that the full setup was complete, I could access the Wazuh Dashboard. To do this, I went on my Windows 10 VM and put in the search bar "https://192.168.1.30:443." I was then asked for my login credentials; I put them in, and I was in the Wazuh dashboard (IM7). I explored around a little to see the different features in Wazuh, like Security Events, Agents, and Vulnerabilities. 
 
+<img width="1890" height="822" alt="Screenshot 2026-07-06 092227" src="https://github.com/user-attachments/assets/ba75205b-80ea-457a-b621-27a8e64d8431" />
 
+IM7: Wazuh Dashboard
 
+### Part 6: Installing Windows Agent and Connecting it to Wazuh Manager
 
+For Wazuh to get any logs/activity from the VMs, they needed to be connected to the manager. This is done by installing an agent onto the VM that you want Wazuh to get logs from. To do this, I clicked on the "Deploy new agent" button on the dashboard (IM8). Just a side note: before I go over the process of deploying the agent, I was trying to deploy this agent on the Windows Server VM, but accidentally named it "Windows10." Just wanted to point that out to avoid any confusion. It then took me to the Deployment Wizard. I put in information like the OS of the agent, the Server address (of the server hosting Wazuh, not of the agent I was configuring), and the name of the agent. At the bottom, it generated a command that would be used to install that agent onto the VM (IM9). I then went into PowerShell and typed in the command given. It ran for about a minute, and then I used the command "NET START Wazuh" To start the service. I then used the command "Get-Service WazuhSvc" to confirm the service was running (IM10). After doing all of this, I went back in Wazuh and saw my Windows agent, and it was active, confirming successful deployment (IM11). 
 
+<img width="532" height="266" alt="Screenshot 2026-07-02 173242" src="https://github.com/user-attachments/assets/136bb007-a667-4c3c-a1fb-5a5dce363c77" />
+
+IM8: Deploying a New Agent in Wazuh
+
+<img width="1835" height="750" alt="Screenshot 2026-07-06 092439" src="https://github.com/user-attachments/assets/2924c82b-4323-48b1-94d3-a60e7816fcc6" />
+
+IM9: Configuring Windows Agent in Wazuh
+
+<img width="843" height="251" alt="Screenshot 2026-07-06 094007" src="https://github.com/user-attachments/assets/b5e72b1c-213c-4295-9aa3-01dc376166f9" />
+
+IM10: Installing Wazuh Agent on Windows Server VM
+
+<img width="1885" height="518" alt="Screenshot 2026-07-06 093639" src="https://github.com/user-attachments/assets/724c78e8-12a0-41fa-b6e1-5462537b0b15" />
+
+IM11: Confirming Windows Agent is Active
+
+### Part 7: Installing Ubuntu Agent and Connecting it to Wazuh Manager
+
+Now I am going to do a similar process to install a Wazuh agent on my Ubuntu VM. I went into the agents section and again configured the OS of the agent, the server IP address, and gave the agent a name (Ubuntu-Endpoint). I then went into the Ubuntu VM and wrote the command given to install the agent onto the VM. Once that was complete, I used the commands "sudo systemctl enable wazuh-agent" and "sudo systemctl start wazuh-agent" to enable and start the service (IM12). I then went back to Wazuh and confirmed that the Ubuntu VM agent was active and configured, and it was (IM13). 
+
+<img width="958" height="365" alt="Screenshot 2026-07-06 095602" src="https://github.com/user-attachments/assets/b286a894-5539-47f1-beda-f297f734f31a" />
+
+IM12: Installing Wazuh Agent on Ubuntu VM and Starting the Service
+
+<img width="1882" height="283" alt="Screenshot 2026-07-06 095752" src="https://github.com/user-attachments/assets/2e86c7de-448c-4f8e-b3a5-087d86886f1e" />
+
+IM13: Confirming Ubuntu Agent is Active
 
 
 
