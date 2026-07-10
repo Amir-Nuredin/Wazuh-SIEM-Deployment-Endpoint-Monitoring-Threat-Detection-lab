@@ -111,6 +111,51 @@ IM12: Installing Wazuh Agent on Ubuntu VM and Starting the Service
 
 IM13: Confirming Ubuntu Agent is Active
 
+### Part 8 Verifying both Agents
+
+I quickly wanted to make sure that both agents were active before starting any attacks/event generation. To do this, I went to the Agents tab in Wazuh and saw that both of my agents were there and active (IM14).
+
+<img width="1869" height="288" alt="Screenshot 2026-07-06 100011" src="https://github.com/user-attachments/assets/fb0d7741-3178-4189-80f2-985539cacab6" />
+
+IM14: Confirming that both Agents were Active in Wazuh
+
+### Part 9: Generating Failed SSH Logins in Wazuh
+
+The first kind of activity I wanted to generate in Wazuh was failed SSH logins from Kali Linux against the Ubuntu-Endpoint VM.
+1. **VERIFYING SSH IS RUNNING ON UBUNTU VM.** First, I checked that ssh was running on the Ubuntu VM by using the command "sudo systemctl status ssh," and it was running (IM15).
+2. **GENERATING FAILED SSH LOGINS FROM KALI.** I then tried to create failed SSH logins by using the command "ssh fakeuser@192.168.1.20." At first, this didn't work, even though I confirmed that SSH was running on both VMs. Then I remembered that in a previous project, I hardened that Ubuntu VM by blocking SSH inbound connections using UFW. Once I deleted that rule for this project, I then tried to SSH into the Ubuntu VM again; it worked. I used a fake username and entered the wrong password purposely five times (IM16).
+3. **CHECKING FOR ALERTS IN WAZUH.** After performing those SSH logins, I then went into Wazuh and then the "Threat Hunting" section to find these events. I searched for "Authentication Failure" in the search bar and pinned the Ubuntu VM so that Wazuh would only focus on authentication failures from that VM. Four total events came up (IM17). The dashboard showed categories like Top 5 alerts (sshd login attempt), Top 5 rule groups (auth_fail and sshd), and the kinds of login as well. It was very detailed and helped me understand what actually happened from the invalid SSH attempt, to the agent on Ubuntu picking it up, and the events reaching Wazuh.
+
+<img width="670" height="219" alt="Screenshot 2026-07-06 100329" src="https://github.com/user-attachments/assets/15b1da2b-e2ff-4bcd-9e0d-1c07390471fd" />
+
+IM15: Confirming SSH was Active on Ubuntu VM
+
+<img width="644" height="230" alt="Screenshot 2026-07-06 101617" src="https://github.com/user-attachments/assets/8205a3fd-af1b-416c-8ef8-b7cb5c499016" />
+
+IM16: Generating Fake and Incorrect SSH Logins from Kali Linux
+
+<img width="1903" height="831" alt="Screenshot 2026-07-06 102235" src="https://github.com/user-attachments/assets/a9d5aecb-fa1d-4a7e-8c0f-0a1f75eec009" />
+
+IM17: Wazuh Dashboard Showing Failed SSH and Authentication Attempts
+
+### Part 10: Generating Windows Authentication Events in Wazuh
+
+Next, I wanted to perform a similar process to Part 9, but with Windows. I generated multiple failed logins from the Windows Server VM and wanted to see what events/alerts showed up in Wazuh. To do this, I locked myself out of the VM and incorrectly typed in my password five times (IM18). I then went into Wazuh and searched for "Login Failure" and pinned the VM as well. I saw five different events, all showing a login failure (IM19). The agent pulled Windows security events and put them into Wazuh. I also noticed in the dashboard that Wazuh also noted those alerts as a possible brute-force attack, which is also a very helpful feature. 
+
+<img width="438" height="481" alt="Screenshot 2026-07-06 103502" src="https://github.com/user-attachments/assets/0455becd-c874-4de7-b1d9-88bbafa4e5dd" />
+
+IM18: Failing Login on Windows to Generate Authentication Events in Wazuh
+
+<img width="1897" height="235" alt="Screenshot 2026-07-06 103908" src="https://github.com/user-attachments/assets/ffc286bb-ea28-4896-816e-707cba6fcc40" />
+
+IM19: Login Failure Alerts in Wazuh
+
+
+
+
+
+
+
 
 
 
