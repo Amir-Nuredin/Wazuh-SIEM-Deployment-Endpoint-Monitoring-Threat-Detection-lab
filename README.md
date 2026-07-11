@@ -150,6 +150,44 @@ IM18: Failing Login on Windows to Generate Authentication Events in Wazuh
 
 IM19: Login Failure Alerts in Wazuh
 
+### Part 11: Nmap Reconnaissance in Wazuh
+
+The last kind of activity I wanted to generate was network activity using Nmap. I did three kinds of scans (Regular, service, and aggressive) on each of the VMs to see what kind of activity/alerts were generated (IM20-23). After doing this, I went back to Wazuh to see if any alerts showed up. Unfortunately, no alerts showed up for the Nmap scans. This is normal, as some kinds of network activity don't show up in logs/alerts for Wazuh and other security monitoring tools. 
+
+<img width="525" height="608" alt="Screenshot 2026-07-06 104233" src="https://github.com/user-attachments/assets/8043aaca-c894-488d-923a-e804c7bc5f63" />
+<img width="973" height="624" alt="Screenshot 2026-07-06 104347" src="https://github.com/user-attachments/assets/3f911a5e-a929-475c-b7a8-4b36675de297" />
+<img width="1292" height="764" alt="Screenshot 2026-07-06 104520" src="https://github.com/user-attachments/assets/6ba9b337-72b1-4e7c-a830-13d6b9d78df8" />
+<img width="1890" height="472" alt="Screenshot 2026-07-06 104603" src="https://github.com/user-attachments/assets/6732b285-cc99-42ef-b3b2-d8e54ada0274" />
+
+IM20-23: Nmap Scans used to Try and Generate Network Activity in Wazuh
+
+### Part 12: Threat Hunting in Wazuh
+
+The last thing I wanted to do in this project was to do some threat hunting for specific alerts and events I generated throughout this project. 
+1. **SEARCHING BY SOURCE IP.** To do this, I went to the Threat Hunting section in Wazuh and searched for the source IP, which was the Kali Linux IP, as that was the VM generating these SSH logins and Nmap scans. I searched "192.168.1.40" and seven total events showed up, six of which were authentication failures and one being a success (I tested the SSH login with the right password and it worked) (IM24).
+2. **SEARCHING BY USERNAME.** I could also search by a username that was involved in any events. I typed in "fakeuser" as that was the username I used when trying to SSH into the Ubuntu VM. Four events came up; all of them as expected, were authentication failures (IM25&26).
+
+<img width="1905" height="508" alt="image" src="https://github.com/user-attachments/assets/da73e361-716a-4b40-afc5-17f70ac3e623" />
+
+IM24: Searching in Wazuh for Events by IP Address
+
+<img width="1903" height="494" alt="image" src="https://github.com/user-attachments/assets/f69657d3-56a9-40ad-a92a-406ea5d1b1ec" />
+<img width="744" height="155" alt="Screenshot 2026-07-06 105347" src="https://github.com/user-attachments/assets/1df27107-3ff7-4527-9e2a-208a23fb6fcf" />
+
+IM25&26: Searching in Wazuh for Events by Username
+
+## Conclusion
+
+This lab successfully demonstrated the foundational concepts of Security Information and Event Management (SIEM), endpoint monitoring, and threat detection using Wazuh. Throughout the project, I deployed a complete Wazuh SIEM environment consisting of the Wazuh Manager, Indexer, and Dashboard, and configured Windows and Ubuntu endpoints with Wazuh agents to enable centralized log collection and real-time security monitoring across the homelab environment.
+
+In addition to deploying the SIEM infrastructure, this project provided hands-on experience generating and analyzing security events through simulated attack scenarios. By performing failed SSH authentication attempts, failed Windows logins, and Nmap reconnaissance scans from a Kali Linux machine, I gained practical experience investigating authentication events, reviewing security alerts, and understanding how endpoint activity is collected and correlated within a SIEM platform. I also utilized Wazuh's Threat Hunting capabilities to search, filter, and analyze security events based on source IP addresses, usernames, and event types.
+
+Overall, this project strengthened my understanding of SIEM architecture, centralized log management, endpoint monitoring, threat hunting, and security event analysis. It provided valuable experience deploying enterprise security monitoring infrastructure, integrating Windows and Linux endpoints, investigating security events, and analyzing attack activity while demonstrating how Security Operations Center (SOC) analysts use SIEM platforms to detect, investigate, and respond to potential security incidents. The knowledge and practical skills gained from this lab establish a strong foundation for future projects involving threat detection, incident response, digital forensics, blue team operations, and enterprise security monitoring.
+
+
+
+
+
 
 
 
