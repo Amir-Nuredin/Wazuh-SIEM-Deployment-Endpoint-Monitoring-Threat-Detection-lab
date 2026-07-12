@@ -1,4 +1,4 @@
-# Wazuh SIEM Deployment Endpoint Monitoring Threat Detection lab
+# Wazuh SIEM Deployment: Endpoint Monitoring Threat Detection lab
 
 ## Objective
 
